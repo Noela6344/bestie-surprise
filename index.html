@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bestie, You Have Some Explaining to Do! 💗</title>
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  background: #fff0f6;
+  font-family: Arial, sans-serif;
+  color: #713b55;
+  text-align: center;
+}
+.card {
+  background: white;
+  max-width: 480px;
+  margin: 35px auto;
+  padding: 25px 20px;
+  border-radius: 25px;
+  box-shadow: 0 5px 20px #e8b8cc;
+}
+h1 { color: #d94f87; }
+button {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  padding: 14px;
+  border: none;
+  border-radius: 15px;
+  background: #ffe0ec;
+  color: #713b55;
+  font-size: 16px;
+  cursor: pointer;
+}
+#next {
+  background: #e75491;
+  color: white;
+}
+#reaction {
+  background: #fff0f6;
+  padding: 15px;
+  border-radius: 15px;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Bestie, You Have Some Explaining to Do! 😂</h1>
+<p id="progress">Our friendship investigation begins! 🕵️‍♀️</p>
+<div id="emoji" style="font-size:60px">💗</div>
+<h2 id="question">Ready for some questions, bestie?</h2>
+<div id="answers">
+<button onclick="startQuiz()">Let's go! 😂</button>
+</div>
+<p id="reaction"></p>
+<button id="next" style="display:none" onclick="nextQuestion()">Next ➜</button>
+<div id="ending" style="display:none">
+<h1>To My Favourite Human 💌</h1>
+<p>
+Thank you for coming to spend time with me. 🥹💕
+Watching movies, laughing together, and sharing our little moments
+meant more to me than you probably realise.
+<br><br>
+Sometimes, the simplest moments become the sweetest memories.
+I'm so grateful I got to share them with you.
+<br><br>
+And Kookie deserves an award for being our official teddy bear
+and household supervisor! 🧸😂
+<br><br>
+I appreciate you, bestie. Here's to more laughter, more memories,
+and many more moments together. Love you! 💗
+</p>
+</div>
+</div>
+
+<script>
+const questions = [
+{
+emoji: "🎬",
+question: "Be honest! Were we watching the movie or just talking through it?",
+answers: ["We watched everything! 😇", "The talking was the movie 😂", "Wait, what movie? 😭"],
+reactions: ["Oscar-worthy behaviour! 🏆😂", "Netflix needs to charge us for commentary! 🍿😭", "The actors were acting and we were doing our own production! 💀😂"]
+},
+{
+emoji: "🤣",
+question: "What happened when we started laughing?",
+answers: ["We couldn't stop 😂", "One of us made it worse 😭", "Our stomachs gave up 💀"],
+reactions: ["Comedy festival, starring us! 🎤😂", "There is always that one person who won't let the joke die! 😭", "Our stomach muscles deserve compensation! 😂"]
+},
+{
+emoji: "🧸",
+question: "Who is the real boss of the house?",
+answers: ["Kookie, obviously! 👑", "Kookie is the main character 🌟", "We work for Kookie 😭"],
+reactions: ["Finally, respect for the CEO! 👑🧸", "Kookie needs a manager and a photoshoot! 📸😂", "Please report to Teddy Relations immediately! 😭"]
+},
+{
+emoji: "🏡",
+question: "What made our time together special?",
+answers: ["Having you around 💗", "Our little memories 🥹", "All the laughter 😂"],
+reactions: ["Stop being so sweet! 🥹💕", "Little moments become big memories. 💗", "Warning: our friendship causes excessive laughter! 😂"]
+},
+{
+emoji: "💌",
+question: "Last question: do you know how much your visit meant to me?",
+answers: ["A little bit 🥺", "A whole lot 💗", "You're making me emotional 😭"],
+reactions: ["Wrong! Investigation reopened! 😂", "Correct! Collect your friendship trophy! 🏆", "And now we are both emotional! 😭💕"]
+}
+];
+
+let current = -1;
+let answered = false;
+
+function startQuiz() {
+current = 0;
+showQuestion();
+}
+
+function showQuestion() {
+answered = false;
+const q = questions[current];
+document.getElementById("progress").textContent =
+"Question " + (current + 1) + " of " + questions.length;
+document.getElementById("emoji").textContent = q.emoji;
+document.getElementById("question").textContent = q.question;
+document.getElementById("reaction").textContent = "";
+document.getElementById("next").style.display = "none";
+
+const area = document.getElementById("answers");
+area.innerHTML = "";
+
+q.answers.forEach(function(answer, i) {
+const b = document.createElement("button");
+b.textContent = answer;
+b.onclick = function() {
+if (answered) return;
+answered = true;
+document.getElementById("reaction").textContent = q.reactions[i];
+document.querySelectorAll("#answers button").forEach(function(btn) {
+btn.disabled = true;
+});
+document.getElementById("next").style.display = "block";
+document.getElementById("next").textContent =
+current === questions.length - 1 ? "Open your letter 💌" : "Next question 😂 ➜";
+};
+area.appendChild(b);
+});
+}
+
+function nextQuestion() {
+if (current < questions.length - 1) {
+current++;
+showQuestion();
+} else {
+document.getElementById("progress").style.display = "none";
+document.getElementById("emoji").style.display = "none";
+document.getElementById("question").style.display = "none";
+document.getElementById("answers").style.display = "none";
+document.getElementById("reaction").style.display = "none";
+document.getElementById("next").style.display = "none";
+document.getElementById("ending").style.display = "block";
+}
+}
+</script>
+</body>
+</html>
